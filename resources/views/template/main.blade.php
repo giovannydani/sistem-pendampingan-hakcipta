@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{ asset('assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" />
 
     <link rel="stylesheet" href="{{ asset('assets/css/shared/iconly.css') }}" />
+
+    @livewireStyles
   </head>
 
   <body>
@@ -97,5 +99,7 @@
     @include('sweetalert::alert', ['cdn' => "//cdn.jsdelivr.net/npm/sweetalert2@11"])
 
     @yield('js')
+
+    @livewireScripts
   </body>
 </html>
