@@ -45,7 +45,7 @@
             @endif
         </tbody>
     </table>
-    @error('holder') <span class="text-danger">{{ $message }}</span> @enderror
+    @error('creator') <span class="text-danger">{{ $message }}</span> @enderror
 
     {{-- <div wire:ignore class="modal" id="addCreator" tabindex="-1">
         <div class="modal-dialog">
@@ -235,7 +235,7 @@
                         <button type="button" wire:click="closeModalAdd" class="btn btn-secondary">Close</button>
                         <button type="button" wire:click="saveCreator" class="btn btn-primary">Submit</button>
                     </div>
-                </form>
+                {{-- </form> --}}
             </div>
         </div>
     </div>
@@ -409,7 +409,7 @@
                         <button type="button" wire:click="closeModalEdit" class="btn btn-secondary">Close</button>
                         <button type="button" wire:click="editCreator('{{$idsEdit}}')" class="btn btn-primary">Submit</button>
                     </div>
-                </form>
+                {{-- </form> --}}
             </div>
         </div>
     </div>

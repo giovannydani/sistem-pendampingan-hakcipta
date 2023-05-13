@@ -75,7 +75,6 @@
     <div wire:ignore.self class="modal fade" id="addHolder" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {{-- <form wire:submit.prevent="saveCreator"> --}}
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Holder</h1>
                     </div>
@@ -241,7 +240,6 @@
                         <button type="button" wire:click="closeModalAddHolder" class="btn btn-secondary">Close</button>
                         <button type="button" wire:click="saveHolder" class="btn btn-primary">Submit</button>
                     </div>
-                </form>
 
             </div>
         </div>
@@ -251,7 +249,6 @@
     <div wire:ignore.self class="modal fade" id="editHolder" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {{-- <form wire:submit.prevent="saveCreator"> --}}
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Creator</h1>
                     </div>
@@ -416,7 +413,6 @@
                         <button type="button" wire:click="closeModalEdit" class="btn btn-secondary">Close</button>
                         <button type="button" wire:click="editCreator('{{$idsEdit}}')" class="btn btn-primary">Submit</button>
                     </div>
-                </form>
             </div>
         </div>
     </div>

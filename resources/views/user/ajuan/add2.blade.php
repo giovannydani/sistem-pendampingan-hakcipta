@@ -131,25 +131,6 @@
             <div class="card">
                 <div class="card-body">
                     @livewire('user.ajuan.holder', ['id' => $detailHakcipta->id])
-                    {{-- <h5 class="mb-5">Data Pemegang Hak Cipta</h5>
-                    <a href="{{ route('user.ajuan.pemegang.create', ['detailHakcipta' => $detailHakcipta->id]) }}" class="btn btn-primary me-3 mb-3"><i class="fa-solid fa-plus"></i> Tambah Pemegang Hak Cipta</a>
-                    <table class="table" id="pemegang-hak-cipta-table">
-                        <thead>
-                            <tr>
-                                <th>Nama</th>
-                                <th>Kewarganegaraan</th>
-                                <th>Alamat</th>
-                                <th>Kode Pos</th>
-                                <th>Kota</th>
-                                <th>Provinsi</th>
-                                <th>Email/No. Telp</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    @error('holder') <span class="text-danger">{{ $message }}</span> @enderror --}}
                 </div>
             </div>
     
@@ -235,8 +216,8 @@
     
             <div class="row">
                 <div class="col-md-6">
-                    <button class="btn btn-primary me-3 mb-3" onclick="addApplication()"><i class="fa-solid fa-plus"></i> Submit</button>
-                    <button class="btn btn-danger me-3 mb-3" onclick="addApplication()"><i class="fa-solid fa-xmark"></i> Cancel</button>
+                    <button type="submit" class="btn btn-primary me-3 mb-3"><i class="fa-solid fa-plus"></i> Submit</button>
+                    <button type="button" class="btn btn-danger me-3 mb-3"><i class="fa-solid fa-xmark"></i> Cancel</button>
                 </div>
             </div>
         </form>
