@@ -163,10 +163,10 @@
 
                         @if ($country_id == '8d1458c5-dde2-3ac3-901b-29d55074c4ec')
                         {{-- Provinsi --}}
-                        <div class="col-md-4" id="province_id_label">
+                        <div class="col-md-4 ina" id="province_id_label">
                             <label class="mt-2" >Provinsi *</label >
                         </div>
-                        <div class="col-md-12 form-group" id="province_id_input">
+                        <div class="col-md-12 form-group ina" id="province_id_input">
                             {{-- <select class="form-select" wire:model="province_id" id="province_id" onchange="provinceFuncAction()"> --}}
                             <select class="form-select" wire:model="province_id" id="province_id">
                                 <option value="">- Pilih Provinsi -</option>
@@ -178,10 +178,10 @@
                         </div>
 
                         {{-- Kota --}}
-                        <div class="col-md-4" id="district_id_label">
+                        <div class="col-md-4 ina" id="district_id_label">
                             <label class="mt-2" >Kota *</label >
                         </div>
-                        <div class="col-md-12 form-group" id="district_id_input">
+                        <div class="col-md-12 form-group ina" id="district_id_input">
                             <select class="form-select" wire:model="district_id" id="district_id">
                                 <option value="">- Pilih Kota -</option>
                                 @foreach ($districts as $district)
@@ -192,10 +192,10 @@
                         </div>
 
                         {{-- Kecamatan --}}
-                        <div class="col-md-4" id="subdistrict_id_label">
+                        <div class="col-md-4 ina" id="subdistrict_id_label">
                             <label class="mt-2" >Kecamatan *</label >
                         </div>
-                        <div class="col-md-12 form-group" id="subdistrict_id_input">
+                        <div class="col-md-12 form-group ina" id="subdistrict_id_input">
                             <select class="form-select" wire:model="subdistrict_id" id="subdistrict_id">
                                 <option value="">- Pilih Kecamatan -</option>
                                 @foreach ($subdistricts as $subdistrict)

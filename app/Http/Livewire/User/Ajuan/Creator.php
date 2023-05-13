@@ -174,6 +174,7 @@ class Creator extends Component
         return view('livewire.user.ajuan.creator', $this->data);
     }
 
+    // edit
     public $idsEdit = "";
     public $nameEdit = "";
     public $emailEdit = "";

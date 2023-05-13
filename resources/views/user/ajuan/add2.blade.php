@@ -130,6 +130,7 @@
             {{-- Data Pemegang Hak Cipta --}}
             <div class="card">
                 <div class="card-body">
+                    @livewire('user.ajuan.holder', ['id' => $detailHakcipta->id])
                     {{-- <h5 class="mb-5">Data Pemegang Hak Cipta</h5>
                     <a href="{{ route('user.ajuan.pemegang.create', ['detailHakcipta' => $detailHakcipta->id]) }}" class="btn btn-primary me-3 mb-3"><i class="fa-solid fa-plus"></i> Tambah Pemegang Hak Cipta</a>
                     <table class="table" id="pemegang-hak-cipta-table">
@@ -531,16 +532,53 @@
                     icon: 'success',
                     showCancelButton: false,
                     confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'Ya, Hapus!',
+                    confirmButtonText: 'Ok',
                 })
             }
         })
     })
+</script>
+<script>
+    window.addEventListener('openModalAddHolder', event => {
+        $('#addHolder').modal('show');
+    })
 
+    window.addEventListener('closeModalAddHolder', event => {
+        $('#addHolder').modal('hide');
+    })
 
-    // window.addEventListener('updated', event => {
-    //     // $('#addCreator').modal('hide');
-    //     // console.log('asdasdsa');
-    // })
+    window.addEventListener('openModalEditHolder', event => {
+        $('#editHolder').modal('show');
+    })
+
+    window.addEventListener('closeModalEditHolder', event => {
+        $('#editHolder').modal('hide');
+    })
+
+    window.addEventListener('openModalDeleteHolder', event => {
+        // $('#editCreator').modal('hide');
+        Swal.fire({
+            title: 'Anda yakin??',
+            text: "Menghapus pencipta hakcipta",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Cancel'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emit('deleteHolder');
+                    Swal.fire({
+                    title: 'Sukses',
+                    text: "Menghapus pencipta hakcipta",
+                    icon: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok',
+                })
+            }
+        })
+    })
 </script>
 @endsection
