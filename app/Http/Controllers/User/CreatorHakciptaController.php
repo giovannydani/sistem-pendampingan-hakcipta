@@ -78,7 +78,6 @@ class CreatorHakciptaController extends Controller
             'address' => $request->address,
             'country_id' => $request->country_id,
             'postal_code' => $request->postal_code,
-            // 'is_company' => $request->is_company,
         ];
 
         if ($request->is_company) {

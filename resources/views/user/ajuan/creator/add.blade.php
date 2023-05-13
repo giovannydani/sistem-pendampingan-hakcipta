@@ -83,7 +83,7 @@
                                     <label class="mt-2">Negara *</label >
                                 </div>
                                 <div class="col-md-8 form-group">
-                                    <select class="form-select" name="country_id" id="country_id" onchange="countryFuncAction()">
+                                    <select class="form-select" wire:model="country_id" id="country_id" onchange="countryFuncAction()">
                                         <option value="">- Pilih Negara -</option>
                                         @foreach ($kewarganegaraans as $kewarganegaraan)
                                         <option value="{{$kewarganegaraan->id}}" @selected(old('country_id') == $kewarganegaraan->id)>{{$kewarganegaraan->name}}</option>

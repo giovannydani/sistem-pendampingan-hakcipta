@@ -123,32 +123,14 @@
             {{-- Data Pencipta --}}
             <div class="card">
                 <div class="card-body">
-                    <h5 class="mb-5">Data Pencipta</h5>
-                    <a href="{{ route('user.ajuan.pencipta.create', ['detailHakcipta' => $detailHakcipta->id]) }}" class="btn btn-primary me-3 mb-3"><i class="fa-solid fa-plus"></i> Tambah Pencipta</a>
-                    <table class="table" id="pencipta-table">
-                        <thead>
-                            <tr>
-                                <th>Nama</th>
-                                <th>Kewarganegaraan</th>
-                                <th>Alamat</th>
-                                <th>Kode Pos</th>
-                                <th>Kota</th>
-                                <th>Provinsi</th>
-                                <th>Email/No. Telp</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    @error('creator') <span class="text-danger">{{ $message }}</span> @enderror
+                    @livewire('user.ajuan.creator', ['id' => $detailHakcipta->id])
                 </div>
             </div>
     
             {{-- Data Pemegang Hak Cipta --}}
             <div class="card">
                 <div class="card-body">
-                    <h5 class="mb-5">Data Pemegang Hak Cipta</h5>
+                    {{-- <h5 class="mb-5">Data Pemegang Hak Cipta</h5>
                     <a href="{{ route('user.ajuan.pemegang.create', ['detailHakcipta' => $detailHakcipta->id]) }}" class="btn btn-primary me-3 mb-3"><i class="fa-solid fa-plus"></i> Tambah Pemegang Hak Cipta</a>
                     <table class="table" id="pemegang-hak-cipta-table">
                         <thead>
@@ -166,7 +148,7 @@
                         <tbody>
                         </tbody>
                     </table>
-                    @error('holder') <span class="text-danger">{{ $message }}</span> @enderror
+                    @error('holder') <span class="text-danger">{{ $message }}</span> @enderror --}}
                 </div>
             </div>
     
@@ -342,78 +324,78 @@
             });
 
         // pemegang table
-        pemegangHakCiptaTable = $('#pemegang-hak-cipta-table').DataTable({
-                "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"]],
-                processing: true,
-                serverSide: true,
-                // scrollX: true,
-                // responsive: true,
-                scrollCollapse: true,
-                fixedColumns: {
-                    left: 0,
-                    right: 1,
-                },
-                ajax: {
-                    url : "{{route('user.ajuan.pemegang.data', ['detailHakcipta' => $detailHakcipta->id])}}",
-                    type : 'POST',
-                    data: {
-                        _token:_token,
-                    },
-                },
-                columns: [
-                    { data: 'name' },
-                    { data: 'nationality.name' },
-                    { data: 'address' },
-                    { data: 'postal_code' },
-                    {
-                        data: 'district_count',
-                        render: function(data, type, row){
-                            // return data+" / "+row.no_telp;
-                            if (data > 0) {
-                                return row.districta['name'];
-                            }else{
-                                return row.district;
-                            }
-                        }
-                    },
-                    {
-                        data: 'province_count',
-                        render: function(data, type, row){
-                            if (data > 0) {
-                                return row.province['name'];
-                            }else{
-                                return "-";
-                            }
-                        }
-                    },
-                    { 
-                        data: 'email',
-                        render: function(data, type, row){
-                            return data+" / "+row.no_telp;
-                        }
-                    },
-                    {
-                        orderable: false,
-                        "searchable": false,
-                        data: 'id',
-                        render: function(data, type, row){
-                            if (row.is_manageable) {
-                                var url_edit = "{{url('/ajuan/')}}"+"/"+_ajuan+"/pemegang/"+data+"/edit";
-                                var delete_action = "onclick=\"deletePemegang('"+data+"')\"";
+        // pemegangHakCiptaTable = $('#pemegang-hak-cipta-table').DataTable({
+        //         "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"]],
+        //         processing: true,
+        //         serverSide: true,
+        //         // scrollX: true,
+        //         // responsive: true,
+        //         scrollCollapse: true,
+        //         fixedColumns: {
+        //             left: 0,
+        //             right: 1,
+        //         },
+        //         ajax: {
+        //             url : "{{route('user.ajuan.pemegang.data', ['detailHakcipta' => $detailHakcipta->id])}}",
+        //             type : 'POST',
+        //             data: {
+        //                 _token:_token,
+        //             },
+        //         },
+        //         columns: [
+        //             { data: 'name' },
+        //             { data: 'nationality.name' },
+        //             { data: 'address' },
+        //             { data: 'postal_code' },
+        //             {
+        //                 data: 'district_count',
+        //                 render: function(data, type, row){
+        //                     // return data+" / "+row.no_telp;
+        //                     if (data > 0) {
+        //                         return row.districta['name'];
+        //                     }else{
+        //                         return row.district;
+        //                     }
+        //                 }
+        //             },
+        //             {
+        //                 data: 'province_count',
+        //                 render: function(data, type, row){
+        //                     if (data > 0) {
+        //                         return row.province['name'];
+        //                     }else{
+        //                         return "-";
+        //                     }
+        //                 }
+        //             },
+        //             { 
+        //                 data: 'email',
+        //                 render: function(data, type, row){
+        //                     return data+" / "+row.no_telp;
+        //                 }
+        //             },
+        //             {
+        //                 orderable: false,
+        //                 "searchable": false,
+        //                 data: 'id',
+        //                 render: function(data, type, row){
+        //                     if (row.is_manageable) {
+        //                         var url_edit = "{{url('/ajuan/')}}"+"/"+_ajuan+"/pemegang/"+data+"/edit";
+        //                         var delete_action = "onclick=\"deletePemegang('"+data+"')\"";
     
-                                return '\
-                                <div class="btn-group" role="group" aria-label="PIC Details Action">\
-                                    <a href="'+url_edit+'" class="btn btn-warning btn-sm me-2 mb-1"><i class="fa-solid fa-pen-to-square"></i> Edit</a>\
-                                    <button type="button" class="btn btn-sm btn-danger mb-1 me-2" '+delete_action+'><i class="fa-solid fa-trash-can"></i> Delete</button>\
-                                </div>';
-                            }else{
-                                return "-";
-                            }
+        //                         return '\
+        //                         <div class="btn-group" role="group" aria-label="PIC Details Action">\
+        //                             <a href="'+url_edit+'" class="btn btn-warning btn-sm me-2 mb-1"><i class="fa-solid fa-pen-to-square"></i> Edit</a>\
+        //                             <button type="button" class="btn btn-sm btn-danger mb-1 me-2" '+delete_action+'><i class="fa-solid fa-trash-can"></i> Delete</button>\
+        //                         </div>';
+        //                     }else{
+        //                         return "-";
+        //                     }
 
-                        }
-                    },
-                ]
-            });
+        //                 }
+        //             },
+        //         ]
+        //     });
 
         // pencipta table
         // pemegangHakCiptaTable = $('#pemegang-hak-cipta-table').DataTable();
@@ -511,5 +493,54 @@
             }
         })
     }
+</script>
+<script>
+    window.addEventListener('openModalAdd', event => {
+        $('#addCreator').modal('show');
+    })
+
+    window.addEventListener('closeModalAdd', event => {
+        $('#addCreator').modal('hide');
+    })
+
+    window.addEventListener('openModalEdit', event => {
+        $('#editCreator').modal('show');
+    })
+
+    window.addEventListener('closeModalEdit', event => {
+        $('#editCreator').modal('hide');
+    })
+
+    window.addEventListener('openModalDelete', event => {
+        // $('#editCreator').modal('hide');
+        Swal.fire({
+            title: 'Anda yakin??',
+            text: "Menghapus pencipta hakcipta",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Cancel'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emit('deleteCreator');
+                    Swal.fire({
+                    title: 'Sukses',
+                    text: "Menghapus pencipta hakcipta",
+                    icon: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Hapus!',
+                })
+            }
+        })
+    })
+
+
+    // window.addEventListener('updated', event => {
+    //     // $('#addCreator').modal('hide');
+    //     // console.log('asdasdsa');
+    // })
 </script>
 @endsection
