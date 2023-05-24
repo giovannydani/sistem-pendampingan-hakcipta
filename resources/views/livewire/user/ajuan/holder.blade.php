@@ -53,24 +53,6 @@
     </table>
     @error('holder') <span class="text-danger">{{ $message }}</span> @enderror
 
-    {{-- <div wire:ignore class="modal" id="addCreator" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Modal title</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-        </div>
-    </div> --}}
-
     <!-- Modal Add-->
     <div wire:ignore.self class="modal fade" id="addHolder" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -153,25 +135,25 @@
                             @error('country_id_holder') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
 
-                        @if ($country_id_holder != '8d1458c5-dde2-3ac3-901b-29d55074c4ec')
+                        {{-- @if ($country_id_holder != '8d1458c5-dde2-3ac3-901b-29d55074c4ec') --}}
                         {{-- district --}}
-                        <div class="col-md-4" id="district_label">
+                        <div wire:ignore.self class="col-md-4" id="district_label_holder">
                             <label class="mt-2">Kota *</label >
                         </div>
-                        <div class="col-md-12 form-group" id="district_input">
+                        <div wire:ignore.self class="col-md-12 form-group" id="district_input_holder">
                             <div class="input-group mb-3">
                                 <input type="text" id="district" class="form-control" wire:model="district_holder" placeholder="Kota" value="{{ old('district_holder') }}">
                             </div>
                             @error('district_holder') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                        @endif
+                        {{-- @endif --}}
 
-                        @if ($country_id_holder == '8d1458c5-dde2-3ac3-901b-29d55074c4ec')
+                        {{-- @if ($country_id_holder == '8d1458c5-dde2-3ac3-901b-29d55074c4ec') --}}
                         {{-- Provinsi --}}
-                        <div class="col-md-4" id="province_id_label">
+                        <div wire:ignore.self class="col-md-4" id="province_id_label_holder">
                             <label class="mt-2" >Provinsi *</label >
                         </div>
-                        <div class="col-md-12 form-group" id="province_id_input">
+                        <div wire:ignore.self class="col-md-12 form-group" id="province_id_input_holder">
                             {{-- <select class="form-select" wire:model="province_id" id="province_id" onchange="provinceFuncAction()"> --}}
                             <select class="form-select" wire:model="province_id_holder" id="province_id">
                                 <option value="">- Pilih Provinsi -</option>
@@ -183,10 +165,10 @@
                         </div>
 
                         {{-- Kota --}}
-                        <div class="col-md-4" id="district_id_label">
+                        <div wire:ignore.self class="col-md-4" id="district_id_label_holder">
                             <label class="mt-2" >Kota *</label >
                         </div>
-                        <div class="col-md-12 form-group" id="district_id_input">
+                        <div wire:ignore.self class="col-md-12 form-group" id="district_id_input_holder">
                             <select class="form-select" wire:model="district_id_holder" id="district_id">
                                 <option value="">- Pilih Kota -</option>
                                 @foreach ($districts_holder as $district)
@@ -197,10 +179,10 @@
                         </div>
 
                         {{-- Kecamatan --}}
-                        <div class="col-md-4" id="subdistrict_id_label">
+                        <div wire:ignore.self class="col-md-4" id="subdistrict_id_label_holder">
                             <label class="mt-2" >Kecamatan *</label >
                         </div>
-                        <div class="col-md-12 form-group" id="subdistrict_id_input">
+                        <div wire:ignore.self class="col-md-12 form-group" id="subdistrict_id_input_holder">
                             <select class="form-select" wire:model="subdistrict_id_holder" id="subdistrict_id">
                                 <option value="">- Pilih Kecamatan -</option>
                                 @foreach ($subdistricts_holder as $subdistrict)
@@ -209,7 +191,7 @@
                             </select>
                             @error('subdistrict_id_holder') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                        @endif
+                        {{-- @endif --}}
 
 
                         {{-- Kode Pos --}}
@@ -314,10 +296,10 @@
                         </div>
 
                         {{-- Negara --}}
-                        <div class="col-md-4">
+                        <div wire:ignore.self class="col-md-4">
                             <label class="mt-2">Negara *</label >
                         </div>
-                        <div class="col-md-12 form-group">
+                        <div wire:ignore.self class="col-md-12 form-group">
                             <select class="form-select" wire:model="country_idEdit" id="country_id" onchange="countryFuncAction()">
                                 <option value="">- Pilih Negara -</option>
                                 @foreach ($kewarganegaraans as $kewarganegaraan)

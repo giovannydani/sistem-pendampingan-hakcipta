@@ -235,152 +235,15 @@
     var _ajuan = "{{ $detailHakcipta->id }}";
 
     $(document).ready(function () {
-        // pencipta table
-        penciptaTable = $('#pencipta-table').DataTable({
-                "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"]],
-                processing: true,
-                serverSide: true,
-                // scrollX: true,
-                // responsive: true,
-                scrollCollapse: true,
-                fixedColumns: {
-                    left: 0,
-                    right: 1,
-                },
-                ajax: {
-                    url : "{{route('user.ajuan.pencipta.data', ['detailHakcipta' => $detailHakcipta->id])}}",
-                    type : 'POST',
-                    data: {
-                        _token:_token,
-                    },
-                },
-                columns: [
-                    { data: 'name' },
-                    { data: 'nationality.name' },
-                    { data: 'address' },
-                    { data: 'postal_code' },
-                    {
-                        data: 'district_count',
-                        render: function(data, type, row){
-                            // return data+" / "+row.no_telp;
-                            if (data > 0) {
-                                return row.districta['name'];
-                            }else{
-                                return row.district;
-                            }
-                        }
-                    },
-                    {
-                        data: 'province_count',
-                        render: function(data, type, row){
-                            if (data > 0) {
-                                return row.province['name'];
-                            }else{
-                                return "-";
-                            }
-                        }
-                    },
-                    { 
-                        data: 'email',
-                        render: function(data, type, row){
-                            return data+" / "+row.no_telp;
-                        }
-                    },
-                    {
-                        orderable: false,
-                        "searchable": false,
-                        data: 'id',
-                        render: function(data, type, row){
-                            var url_edit = "{{url('/ajuan/')}}"+"/"+_ajuan+"/pencipta/"+data+"/edit";
-                            var delete_action = "onclick=\"deletePencipta('"+data+"')\"";
-
-                            return '\
-                            <div class="btn-group" role="group" aria-label="PIC Details Action">\
-                                <a href="'+url_edit+'" class="btn btn-warning btn-sm me-2 mb-1"><i class="fa-solid fa-pen-to-square"></i> Edit</a>\
-                                <button type="button" class="btn btn-sm btn-danger mb-1 me-2" '+delete_action+'><i class="fa-solid fa-trash-can"></i> Delete</button>\
-                            </div>';
-
-                        }
-                    },
-                ]
-            });
-
-        // pemegang table
-        // pemegangHakCiptaTable = $('#pemegang-hak-cipta-table').DataTable({
-        //         "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"]],
-        //         processing: true,
-        //         serverSide: true,
-        //         // scrollX: true,
-        //         // responsive: true,
-        //         scrollCollapse: true,
-        //         fixedColumns: {
-        //             left: 0,
-        //             right: 1,
-        //         },
-        //         ajax: {
-        //             url : "{{route('user.ajuan.pemegang.data', ['detailHakcipta' => $detailHakcipta->id])}}",
-        //             type : 'POST',
-        //             data: {
-        //                 _token:_token,
-        //             },
-        //         },
-        //         columns: [
-        //             { data: 'name' },
-        //             { data: 'nationality.name' },
-        //             { data: 'address' },
-        //             { data: 'postal_code' },
-        //             {
-        //                 data: 'district_count',
-        //                 render: function(data, type, row){
-        //                     // return data+" / "+row.no_telp;
-        //                     if (data > 0) {
-        //                         return row.districta['name'];
-        //                     }else{
-        //                         return row.district;
-        //                     }
-        //                 }
-        //             },
-        //             {
-        //                 data: 'province_count',
-        //                 render: function(data, type, row){
-        //                     if (data > 0) {
-        //                         return row.province['name'];
-        //                     }else{
-        //                         return "-";
-        //                     }
-        //                 }
-        //             },
-        //             { 
-        //                 data: 'email',
-        //                 render: function(data, type, row){
-        //                     return data+" / "+row.no_telp;
-        //                 }
-        //             },
-        //             {
-        //                 orderable: false,
-        //                 "searchable": false,
-        //                 data: 'id',
-        //                 render: function(data, type, row){
-        //                     if (row.is_manageable) {
-        //                         var url_edit = "{{url('/ajuan/')}}"+"/"+_ajuan+"/pemegang/"+data+"/edit";
-        //                         var delete_action = "onclick=\"deletePemegang('"+data+"')\"";
-    
-        //                         return '\
-        //                         <div class="btn-group" role="group" aria-label="PIC Details Action">\
-        //                             <a href="'+url_edit+'" class="btn btn-warning btn-sm me-2 mb-1"><i class="fa-solid fa-pen-to-square"></i> Edit</a>\
-        //                             <button type="button" class="btn btn-sm btn-danger mb-1 me-2" '+delete_action+'><i class="fa-solid fa-trash-can"></i> Delete</button>\
-        //                         </div>';
-        //                     }else{
-        //                         return "-";
-        //                     }
-
-        //                 }
-        //             },
-        //         ]
-        //     });
-
-        // pencipta table
-        // pemegangHakCiptaTable = $('#pemegang-hak-cipta-table').DataTable();
+        $('#province_id_input_holder').hide();
+        $('#district_id_input_holder').hide();
+        $('#subdistrict_id_input_holder').hide();
+        $('#province_id_label_holder').hide();
+        $('#district_id_label_holder').hide();
+        $('#subdistrict_id_label_holder').hide();
+        
+        $('#district_input_holder').show();
+        $('#district_label_holder').show();
 
         getSubjenis($('#creation_type_id').val());
     });
@@ -560,6 +423,54 @@
                 })
             }
         })
+    })
+
+    window.addEventListener('inputDistrictHolder', event => {
+        $('#province_id_input_holder').hide();
+        $('#district_id_input_holder').hide();
+        $('#subdistrict_id_input_holder').hide();
+        $('#province_id_label_holder').hide();
+        $('#district_id_label_holder').hide();
+        $('#subdistrict_id_label_holder').hide();
+        
+        $('#district_input_holder').show();
+        $('#district_label_holder').show();
+    })
+
+    window.addEventListener('inputProvinceHolder', event => {
+        $('#province_id_input_holder').show();
+        $('#district_id_input_holder').show();
+        $('#subdistrict_id_input_holder').show();
+        $('#province_id_label_holder').show();
+        $('#district_id_label_holder').show();
+        $('#subdistrict_id_label_holder').show();
+        
+        $('#district_input_holder').hide();
+        $('#district_label_holder').hide();
+    })
+
+    window.addEventListener('inputDistrictEditHolder', event => {
+        $('#province_id_input_edit_holder').hide();
+        $('#district_id_input_edit_holder').hide();
+        $('#subdistrict_id_input_edit_holder').hide();
+        $('#province_id_label_edit_holder').hide();
+        $('#district_id_label_edit_holder').hide();
+        $('#subdistrict_id_label_edit_holder').hide();
+        
+        $('#district_input_edit_holder').show();
+        $('#district_label_edit_holder').show();
+    })
+
+    window.addEventListener('inputProvinceEditHolder', event => {
+        $('#province_id_input_edit_holder').show();
+        $('#district_id_input_edit_holder').show();
+        $('#subdistrict_id_input_edit_holder').show();
+        $('#province_id_label_edit_holder').show();
+        $('#district_id_label_edit_holder').show();
+        $('#subdistrict_id_label_edit_holder').show();
+        
+        $('#district_input_edit_holder').hide();
+        $('#district_label_edit_holder').hide();
     })
 </script>
 @endsection
