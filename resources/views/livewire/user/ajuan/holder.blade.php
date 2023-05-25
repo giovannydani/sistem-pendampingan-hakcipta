@@ -227,7 +227,7 @@
         </div>
     </div>
 
-    <!-- Modal Add-->
+    <!-- Modal Edit-->
     <div wire:ignore.self class="modal fade" id="editHolder" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -300,7 +300,7 @@
                             <label class="mt-2">Negara *</label >
                         </div>
                         <div wire:ignore.self class="col-md-12 form-group">
-                            <select class="form-select" wire:model="country_idEdit" id="country_id" onchange="countryFuncAction()">
+                            <select class="form-select" wire:model="country_idEdit" id="country_id">
                                 <option value="">- Pilih Negara -</option>
                                 @foreach ($kewarganegaraans as $kewarganegaraan)
                                 <option value="{{$kewarganegaraan['id']}}" @selected(old('country_id') == $kewarganegaraan['id'])>{{$kewarganegaraan['name']}}</option>
@@ -311,10 +311,10 @@
 
                         @if ($country_idEdit != '8d1458c5-dde2-3ac3-901b-29d55074c4ec')
                         {{-- district --}}
-                        <div class="col-md-4" id="district_label">
+                        <div wire:ignore.self class="col-md-4" id="district_label_edit_holder">
                             <label class="mt-2">Kota *</label >
                         </div>
-                        <div class="col-md-12 form-group" id="district_input">
+                        <div wire:ignore.self class="col-md-12 form-group" id="district_input_edit_holder">
                             <div class="input-group mb-3">
                                 <input type="text" id="district" class="form-control" wire:model="districtEdit" placeholder="Kota" value="{{ old('district') }}">
                             </div>
@@ -324,10 +324,10 @@
 
                         @if ($country_idEdit == '8d1458c5-dde2-3ac3-901b-29d55074c4ec')
                         {{-- Provinsi --}}
-                        <div class="col-md-4" id="province_id_label">
+                        <div wire:ignore.self class="col-md-4" id="province_id_label_edit_holder">
                             <label class="mt-2" >Provinsi *</label >
                         </div>
-                        <div class="col-md-12 form-group" id="province_id_input">
+                        <div wire:ignore.self class="col-md-12 form-group" id="province_id_input_edit_holder">
                             <select class="form-select" wire:model="province_id_edit" id="province_id">
                                 <option value="">- Pilih Provinsi -</option>
                                 @foreach ($provinsis as $provinsi)
@@ -338,10 +338,10 @@
                         </div>
 
                         {{-- Kota --}}
-                        <div class="col-md-4" id="district_id_label">
+                        <div wire:ignore.self class="col-md-4" id="district_id_label_edit_holder">
                             <label class="mt-2" >Kota *</label >
                         </div>
-                        <div class="col-md-12 form-group" id="district_id_input">
+                        <div wire:ignore.self class="col-md-12 form-group" id="district_id_input_edit_holder">
                             <select class="form-select" wire:model="district_id_edit" id="district_id">
                                 <option value="">- Pilih Kota -</option>
                                 @foreach ($districtsEdit as $district)
@@ -352,10 +352,10 @@
                         </div>
 
                         {{-- Kecamatan --}}
-                        <div class="col-md-4" id="subdistrict_id_label">
+                        <div wire:ignore.self class="col-md-4" id="subdistrict_id_label_edit_holder">
                             <label class="mt-2" >Kecamatan *</label >
                         </div>
-                        <div class="col-md-12 form-group" id="subdistrict_id_input">
+                        <div wire:ignore.self class="col-md-12 form-group" id="subdistrict_id_input_edit_holder">
                             <select class="form-select" wire:model="subdistrict_id_edit" id="subdistrict_id">
                                 <option value="">- Pilih Kecamatan -</option>
                                 @foreach ($subdistrictsEdit as $subdistrict)
