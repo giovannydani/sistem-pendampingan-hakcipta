@@ -62,6 +62,15 @@ class Creator extends Component
         ->get();
     }
 
+    public function updatedCountryId($value)
+    {
+        if ($value == "8d1458c5-dde2-3ac3-901b-29d55074c4ec") {
+            $this->dispatchBrowserEvent('inputProvinceCreator');
+        }elseif ($value != "8d1458c5-dde2-3ac3-901b-29d55074c4ec") {
+            $this->dispatchBrowserEvent('inputDistrictCreator');
+        }
+    }
+
     public function add()
     {
         dd($this->data);

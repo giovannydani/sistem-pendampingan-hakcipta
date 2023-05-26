@@ -245,7 +245,16 @@
         $('#district_input_holder').show();
         $('#district_label_holder').show();
 
-        getSubjenis($('#creation_type_id').val());
+
+        $('#province_id_input_creator').hide();
+        $('#district_id_input_creator').hide();
+        $('#subdistrict_id_input_creator').hide();
+        $('#province_id_label_creator').hide();
+        $('#district_id_label_creator').hide();
+        $('#subdistrict_id_label_creator').hide();
+        
+        $('#district_input_creator').show();
+        $('#district_label_creator').show();
     });
 
     $('#creation_type_id').on('change', function () {
@@ -449,28 +458,28 @@
         $('#district_label_holder').hide();
     })
 
-    window.addEventListener('inputDistrictEditHolder', event => {
-        $('#province_id_input_edit_holder').hide();
-        $('#district_id_input_edit_holder').hide();
-        $('#subdistrict_id_input_edit_holder').hide();
-        $('#province_id_label_edit_holder').hide();
-        $('#district_id_label_edit_holder').hide();
-        $('#subdistrict_id_label_edit_holder').hide();
+    window.addEventListener('inputDistrictCreator', event => {
+        $('#province_id_input_creator').hide();
+        $('#district_id_input_creator').hide();
+        $('#subdistrict_id_input_creator').hide();
+        $('#province_id_label_creator').hide();
+        $('#district_id_label_creator').hide();
+        $('#subdistrict_id_label_creator').hide();
         
-        $('#district_input_edit_holder').show();
-        $('#district_label_edit_holder').show();
+        $('#district_input_creator').show();
+        $('#district_label_creator').show();
     })
 
-    window.addEventListener('inputProvinceEditHolder', event => {
-        $('#province_id_input_edit_holder').show();
-        $('#district_id_input_edit_holder').show();
-        $('#subdistrict_id_input_edit_holder').show();
-        $('#province_id_label_edit_holder').show();
-        $('#district_id_label_edit_holder').show();
-        $('#subdistrict_id_label_edit_holder').show();
+    window.addEventListener('inputProvinceCreator', event => {
+        $('#province_id_input_creator').show();
+        $('#district_id_input_creator').show();
+        $('#subdistrict_id_input_creator').show();
+        $('#province_id_label_creator').show();
+        $('#district_id_label_creator').show();
+        $('#subdistrict_id_label_creator').show();
         
-        $('#district_input_edit_holder').hide();
-        $('#district_label_edit_holder').hide();
+        $('#district_input_creator').hide();
+        $('#district_label_creator').hide();
     })
 </script>
 @endsection
