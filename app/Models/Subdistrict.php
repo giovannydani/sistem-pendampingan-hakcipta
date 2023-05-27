@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\SortByNameScope;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 class Subdistrict extends Model
 {
@@ -19,5 +20,10 @@ class Subdistrict extends Model
     public function District()
     {
         return $this->belongsTo(District::class, 'district_id');
+    }
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new SortByNameScope);
     }
 }
