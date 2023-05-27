@@ -45,9 +45,9 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        // event(new Registered($newUser));
+        event(new Registered($newUser));
 
-        dispatch(new SendVerificationEmail($newUser));
+        // dispatch(new SendVerificationEmail($newUser));
 
         if (Auth::loginUsingId($newUser->id)) {
             $request->session()->regenerate();
