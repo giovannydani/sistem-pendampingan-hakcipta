@@ -212,7 +212,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    @if ($detailHakcipta->newcomment->comment)
+                    @if ($detailHakcipta->newcomment)
                     <div class="col-md-12">
                         <label class="mt-2" >Last Comment</label >
                     </div>
