@@ -232,13 +232,12 @@
 
             <div class="card">
                 <div class="card-body">
-                    @if ($detailHakcipta->newcomment->comment)
+                    @if ($detailHakcipta->newcomment)
                     <div class="col-md-12">
                         <label class="mt-2" >Comment*</label >
                     </div>
                     <div class="col-md-12 form-group mt-2">
                         <textarea rows="3" placeholder="Uraian Singkat Ciptaan" class="form-control" readonly disabled>{{$detailHakcipta->newcomment->comment}}</textarea>
-                        @error('comment') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     @endif
                 </div>

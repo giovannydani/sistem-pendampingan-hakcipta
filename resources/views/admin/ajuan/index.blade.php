@@ -10,8 +10,6 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-                {{-- <a href="{{ route('admin.application-type.create') }}" class="btn btn-primary me-3 mb-3"><i class="fa-solid fa-plus"></i> Add Ajuan</a> --}}
-                <button class="btn btn-primary me-3 mb-3" onclick="addApplication()"><i class="fa-solid fa-plus"></i> Add Ajuan</button>
                 <table class="table" id="application-table">
                     <thead>
                         <tr>
