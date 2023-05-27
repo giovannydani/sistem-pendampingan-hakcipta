@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\TemplateController as AdminTemplateController;
 use App\Http\Controllers\Admin\Parameter\HolderController as ParameterHolderController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\DashboardController as UserDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,22 +52,7 @@ use App\Http\Controllers\ProfileController;
     
     // Route::group(['as' => 'auth.'], function (){
     Route::group(['middleware' => 'guest'], function (){
-        Route::get('/', [LoginController::class, 'index']);
-
-        // Route::get('/log', function () {
-        //     // Log::channel('coba')->info('aaaaaaaa');
-        //     // new tryALog();
-        //     // dispatch(new tryALog());
-        //     // $this->dispatch(new tryALog());
-
-        //     $user = User::where('email', 'superadmin@example.com')->first();
-
-        //     // if ($user instanceof MustVerifyEmail && ! $user->hasVerifiedEmail()) {
-        //     //     $user->sendEmailVerificationNotification();
-        //     // }
-
-        //     // $user->sendEmailVerificationNotification();
-        // });
+        Route::get('/', [LoginController::class, 'index'])->name('index');
 
         // forgot password
         Route::group(['controller' => ForgotPasswordController::class], function (){
@@ -115,9 +101,7 @@ use App\Http\Controllers\ProfileController;
 
         Route::group(['middleware' => ['verified']], function (){    
             Route::group(['as' => 'user.', 'middleware' => [UserRole::getMiddlewareUserRole()]], function (){
-                Route::get('/dashboard', function () {
-                    return view('user.dashboard');
-                })->name('dashboard');
+                Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
     
                 // profile
                 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'controller' => UserProfileController::class], function (){
