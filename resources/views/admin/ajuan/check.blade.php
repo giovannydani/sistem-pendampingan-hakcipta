@@ -214,7 +214,7 @@
                 <form id="comment_hakcipta_form" action="{{route('admin.ajuan.store', ['detailHakcipta' => $detailHakcipta->id])}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        @if ($detailHakcipta->newcomment->comment)
+                        @if ($detailHakcipta->newcomment)
                         <div class="col-md-12">
                             <label class="mt-2" >Last Comment</label >
                         </div>
@@ -421,22 +421,6 @@
                             }).then((result) => {
                             if (result.isConfirmed) {
                                 window.location.replace(url_redirect);
-                                // $.ajax({
-                                //     url: url,
-                                //     type:'PUT',
-                                //     data: {_token:_token},
-                                //     success: function(data) {
-                                //         console.log(data);
-                                //         // Swal.fire(
-                                //         //     'Success',
-                                //         //     'Delete Admin Data',
-                                //         //     'success'
-                                //         // )
-
-                                //         // manageAdminTable.ajax.reload();
-                                //     }
-                                // });
-                                // console.log('asasasas');
                             }
                         })
                     }
