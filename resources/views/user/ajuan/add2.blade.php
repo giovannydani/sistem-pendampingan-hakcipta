@@ -147,7 +147,7 @@
                                 </div>
                                 <div class="form-group px-2">
                                     <input type="file" class="form-control" id="salinan_resmi_akta_pendirian_badan_hukum" name="salinan_resmi_akta_pendirian_badan_hukum">
-                                    @error('salinan_resmi_akta_pendirian_badan_hukum') <span class="text-danger">{{ $message }}</span> @enderror
+                                    @error('salinan_resmi_akta_pendirian_badan_hukum') <span class="text-warning">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>
@@ -159,7 +159,7 @@
                                 </div>
                                 <div class="px-2 form-group">
                                     <input type="file" class="form-control" id="scan_npwp" name="scan_npwp">
-                                    @error('scan_npwp') <span class="text-danger">{{ $message }}</span> @enderror
+                                    @error('scan_npwp') <span class="text-warning">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>
@@ -171,7 +171,7 @@
                                 </div>
                                 <div class="px-2 form-group">
                                     <input type="file" class="form-control" id="contoh_ciptaan" name="contoh_ciptaan">
-                                    @error('contoh_ciptaan') <span class="text-danger">{{ $message }}</span> @enderror
+                                    @error('contoh_ciptaan') <span class="text-warning">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>
@@ -183,7 +183,7 @@
                                 </div>
                                 <div class="px-2 form-group">
                                     <textarea rows="3" placeholder="Contoh Ciptaan (Link)" class="form-control" id="link_contoh_ciptaan" name="link_contoh_ciptaan">{{old('link_contoh_ciptaan')}}</textarea>
-                                    @error('link_contoh_ciptaan') <span class="text-danger">{{ $message }}</span> @enderror
+                                    @error('link_contoh_ciptaan') <span class="text-warning">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>
@@ -195,7 +195,7 @@
                                 </div>
                                 <div class="px-2 form-group">
                                     <input type="file" class="form-control" name="scan_ktp" id="scan_ktp">
-                                    @error('scan_ktp') <span class="text-danger">{{ $message }}</span> @enderror
+                                    @error('scan_ktp') <span class="text-warning">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>
@@ -207,7 +207,7 @@
                                 </div>
                                 <div class="px-2 form-group">
                                     <input type="file" class="form-control" id="surat_pernyataan" name="surat_pernyataan">
-                                    @error('surat_pernyataan') <span class="text-danger">{{ $message }}</span> @enderror
+                                    @error('surat_pernyataan') <span class="text-warning">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>
@@ -219,7 +219,7 @@
                                 </div>
                                 <div class="px-2 form-group">
                                     <input type="file" class="form-control" id="bukti_pengalihan_hak_cipta" name="bukti_pengalihan_hak_cipta">
-                                    @error('bukti_pengalihan_hak_cipta') <span class="text-danger">{{ $message }}</span> @enderror
+                                    @error('bukti_pengalihan_hak_cipta') <span class="text-warning">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>
@@ -229,7 +229,6 @@
     
             <div class="row">
                 <div class="col-md-6">
-                    {{-- <button type="submit" class="btn btn-primary me-3 mb-3"><i class="fa-solid fa-plus"></i> Submit</button> --}}
                     <button type="button" id="submit_button_form" class="btn btn-primary me-3 mb-3"><i class="fa-solid fa-plus"></i> Submit</button>
                     <button type="button" class="btn btn-danger me-3 mb-3"><i class="fa-solid fa-xmark"></i> Cancel</button>
                 </div>

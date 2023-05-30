@@ -118,7 +118,7 @@ class DetailHakcipta extends Model
         if (self::holders()->count() < ($number + $defaultHolder)){
             $result = [
                 'status' => false,
-                'message' => "Holders must be more than ". $number,
+                'message' => "Pemegang Hakcipta harus lebih dari ". $number,
             ];
         }else {
             $result = [
@@ -136,7 +136,7 @@ class DetailHakcipta extends Model
         if (self::creators()->count() < $number){
             $result = [
                 'status' => false,
-                'message' => "Creator must be more than ". $number,
+                'message' => "Pencipta harus lebih dari ". $number,
             ];
         }else {
             $result = [

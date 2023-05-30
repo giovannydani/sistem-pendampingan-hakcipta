@@ -12,6 +12,7 @@ use App\Models\ApplicationType;
 use App\Models\ParameterHolder;
 use App\Http\Controllers\Controller;
 use App\Models\AttachmentHakcipta;
+use App\Traits\CustomAttribute;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -22,6 +23,7 @@ use Illuminate\Validation\Validator as ValidationValidator;
 
 class AjuanController extends Controller
 {
+    use CustomAttribute;
 
     private $_minHolderCount = 1;
     private $_minCreatorCount = 1;
@@ -84,7 +86,6 @@ class AjuanController extends Controller
             'salinan_resmi_akta_pendirian_badan_hukum' => ['required', File::types(['pdf'])->max(5000) ],
             'scan_npwp' => ['required', File::types(['pdf'])->max(5000)],
             'contoh_ciptaan' => ['required', File::types(['pdf'])->max(5000)],
-            // 'link_contoh_ciptaan' => ['required'],
             'scan_ktp' => ['required', File::types(['pdf'])->max(5000)],
             'surat_pernyataan' => ['required', File::types(['pdf'])->max(5000)],
             'bukti_pengalihan_hak_cipta' => ['required', File::types(['pdf'])->max(5000)],
@@ -94,6 +95,7 @@ class AjuanController extends Controller
         $validator = Validator::make(
             data: $request->all(),
             rules: $rules,
+            attributes: $this->ajuanAttribute(),
         );
         
         $validator->after(function (ValidationValidator $validator) use ($detailHakcipta) {
@@ -245,6 +247,7 @@ class AjuanController extends Controller
         $validator = Validator::make(
             data: $request->all(),
             rules: $rules,
+            attributes: $this->ajuanAttribute(),
         );
         
         $validator->after(function (ValidationValidator $validator) use ($detailHakcipta) {
