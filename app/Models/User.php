@@ -100,16 +100,16 @@ class User extends Authenticatable implements MustVerifyEmail
     
     public function applications_finish()
     {
-        return $this->hasMany(DetailHakcipta::class, 'owner_id')->where('status', AjuanStatus::Finish->value);
+        return $this->hasMany(DetailHakcipta::class, 'owner_id')->where('status', AjuanStatus::Finish->value)->where('is_submited', 1);
     }
     
     public function applications_process()
     {
-        return $this->hasMany(DetailHakcipta::class, 'owner_id')->where('status', AjuanStatus::AdminProcess->value);
+        return $this->hasMany(DetailHakcipta::class, 'owner_id')->where('status', AjuanStatus::AdminProcess->value)->where('is_submited', 1);
     }
     
     public function applications_revision()
     {
-        return $this->hasMany(DetailHakcipta::class, 'owner_id')->where('status', AjuanStatus::Revision->value);
+        return $this->hasMany(DetailHakcipta::class, 'owner_id')->where('status', AjuanStatus::Revision->value)->where('is_submited', 1);
     }
 }
