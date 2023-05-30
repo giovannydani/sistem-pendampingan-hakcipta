@@ -327,7 +327,7 @@ class AjuanController extends Controller
 
         // $detailHakcipta->attachment()->update();
 
-        Alert::toast('Success Menambah Ajuan', 'success');
+        Alert::toast('Success Mengedit Ajuan', 'success');
 
         return redirect()->to(route('user.ajuan.index'));
     }
