@@ -139,72 +139,85 @@
                 <div class="card-body">
                     <h5 class="mb-5">Lampiran</h5>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="row">
-                                
-                                {{-- Salinan Resmi Akta Pendirian Badan Hukum --}}
-                                <div class="col-md-4">
-                                    <label class="mt-2" >Salinan Resmi Akta Pendirian Badan Hukum*</label >
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem; background-color: #435ebe">
+                                <i class="fa-solid fa-file card-img-top pt-5" style="font-size: 100px; text-align: center;  color: white"></i>
+                                <div class="card-body" style="text-align: center">
+                                    <h5 class="card-title" style="text-align: center; color: white">Salinan Resmi Akta Pendirian Badan Hukum</h5>
                                 </div>
-                                <div class="col-md-8 form-group">
+                                <div class="form-group px-2">
                                     <input type="file" class="form-control" id="salinan_resmi_akta_pendirian_badan_hukum" name="salinan_resmi_akta_pendirian_badan_hukum">
                                     @error('salinan_resmi_akta_pendirian_badan_hukum') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
-                                
-                                {{-- Scan NPWP perorangan / perusahaan --}}
-                                <div class="col-md-4">
-                                    <label class="mt-2" >Scan NPWP perorangan / perusahaan*</label >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem; background-color: #435ebe">
+                                <i class="fa-solid fa-file card-img-top pt-5" style="font-size: 100px; text-align: center;  color: white"></i>
+                                <div class="card-body" style="text-align: center">
+                                    <h5 class="card-title" style="text-align: center; color: white">Scan NPWP</h5>
                                 </div>
-                                <div class="col-md-8 form-group">
+                                <div class="px-2 form-group">
                                     <input type="file" class="form-control" id="scan_npwp" name="scan_npwp">
                                     @error('scan_npwp') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
-                                
-                                {{-- Contoh Ciptaan --}}
-                                <div class="col-md-4">
-                                    <label class="mt-2" >Contoh Ciptaan*</label >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem; background-color: #435ebe">
+                                <i class="fa-solid fa-file card-img-top pt-5" style="font-size: 100px; text-align: center;  color: white"></i>
+                                <div class="card-body" style="text-align: center">
+                                    <h5 class="card-title" style="text-align: center; color: white">Contoh Ciptaan</h5>
                                 </div>
-                                <div class="col-md-8 form-group">
+                                <div class="px-2 form-group">
                                     <input type="file" class="form-control" id="contoh_ciptaan" name="contoh_ciptaan">
                                     @error('contoh_ciptaan') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
-                                
-                                {{-- Contoh Ciptaan (Link) --}}
-                                <div class="col-md-4">
-                                    <label class="mt-2" >Contoh Ciptaan (Link)</label >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem; background-color: #435ebe">
+                                <i class="fa-solid fa-link card-img-top pt-5" style="font-size: 100px; text-align: center;  color: white"></i>
+                                <div class="card-body" style="text-align: center">
+                                    <h5 class="card-title" style="text-align: center; color: white">Contoh Ciptaan (Link)</h5>
                                 </div>
-                                <div class="col-md-8 form-group">
+                                <div class="px-2 form-group">
                                     <textarea rows="3" placeholder="Contoh Ciptaan (Link)" class="form-control" id="link_contoh_ciptaan" name="link_contoh_ciptaan">{{old('link_contoh_ciptaan')}}</textarea>
                                     @error('link_contoh_ciptaan') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                
-                                {{-- Scan KTP Pemohon dan Pencipta --}}
-                                <div class="col-md-4">
-                                    <label class="mt-2" >Scan KTP Pemohon dan Pencipta*</label >
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem; background-color: #435ebe">
+                                <i class="fa-solid fa-file card-img-top pt-5" style="font-size: 100px; text-align: center;  color: white"></i>
+                                <div class="card-body" style="text-align: center">
+                                    <h5 class="card-title" style="text-align: center; color: white">Scan KTP</h5>
                                 </div>
-                                <div class="col-md-8 form-group">
+                                <div class="px-2 form-group">
                                     <input type="file" class="form-control" name="scan_ktp" id="scan_ktp">
                                     @error('scan_ktp') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
-    
-                                {{-- Surat Pernyataan --}}
-                                <div class="col-md-4">
-                                    <label class="mt-2" >Surat Pernyataan*</label >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem; background-color: #435ebe">
+                                <i class="fa-solid fa-file card-img-top pt-5" style="font-size: 100px; text-align: center;  color: white"></i>
+                                <div class="card-body" style="text-align: center">
+                                    <h5 class="card-title" style="text-align: center; color: white">Surat Pernyataan</h5>
                                 </div>
-                                <div class="col-md-8 form-group">
+                                <div class="px-2 form-group">
                                     <input type="file" class="form-control" id="surat_pernyataan" name="surat_pernyataan">
                                     @error('surat_pernyataan') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
-    
-                                {{-- Bukti Pengalihan Hak Cipta --}}
-                                <div class="col-md-4">
-                                    <label class="mt-2" >Bukti Pengalihan Hak Cipta</label >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem; background-color: #435ebe">
+                                <i class="fa-solid fa-file card-img-top pt-5" style="font-size: 100px; text-align: center;  color: white"></i>
+                                <div class="card-body" style="text-align: center">
+                                    <h5 class="card-title" style="text-align: center; color: white">Bukti Pengalihan Hak Cipta</h5>
                                 </div>
-                                <div class="col-md-8 form-group">
+                                <div class="px-2 form-group">
                                     <input type="file" class="form-control" id="bukti_pengalihan_hak_cipta" name="bukti_pengalihan_hak_cipta">
                                     @error('bukti_pengalihan_hak_cipta') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
@@ -255,6 +268,8 @@
         
         $('#district_input_creator').show();
         $('#district_label_creator').show();
+
+        getSubjenis($('#creation_type_id').val());
     });
 
     $('#creation_type_id').on('change', function () {

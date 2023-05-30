@@ -1,15 +1,15 @@
 @extends('template.main')
 
-@section('page-title', 'Tambah Ajuan')
+@section('page-title', 'Edit Ajuan')
 
 @section('content')
 <div class="page-heading">
-  <h3>Tambah Ajuan</h3>
+  <h3>Edit Ajuan</h3>
 </div>
 <div class="page-content">
     <section class="section">
 
-        <form action="{{ route('user.ajuan.store', ['detailHakcipta' => $detailHakcipta->id]) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('user.ajuan.update', ['detailHakcipta' => $detailHakcipta->id]) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             {{-- detail --}}
@@ -88,7 +88,7 @@
                                     <label class="mt-2" >Tanggal Pertama Kali Diumumkan*</label >
                                 </div>
                                 <div class="col-md-8 form-group">
-                                    <input type="date" name="first_announced_date" id="first_announced_date" class="form-control" value="{{old('first_announced_date', $detailHakcipta->first_announced_date)}}">
+                                    <input type="date" name="first_announced_date" id="first_announced_date" rows="3" class="form-control" value="{{old('first_announced_date', $detailHakcipta->first_announced_date)}}">
                                     @error('first_announced_date') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                                 
@@ -123,50 +123,14 @@
             {{-- Data Pencipta --}}
             <div class="card">
                 <div class="card-body">
-                    <h5 class="mb-5">Data Pencipta</h5>
-                    <a href="{{ route('user.ajuan.pencipta.create', ['detailHakcipta' => $detailHakcipta->id]) }}" class="btn btn-primary me-3 mb-3"><i class="fa-solid fa-plus"></i> Tambah Pencipta</a>
-                    <table class="table" id="pencipta-table">
-                        <thead>
-                            <tr>
-                                <th>Nama</th>
-                                <th>Kewarganegaraan</th>
-                                <th>Alamat</th>
-                                <th>Kode Pos</th>
-                                <th>Kota</th>
-                                <th>Provinsi</th>
-                                <th>Email/No. Telp</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    @error('creator') <span class="text-danger">{{ $message }}</span> @enderror
+                    @livewire('user.ajuan.creator', ['id' => $detailHakcipta->id])
                 </div>
             </div>
     
             {{-- Data Pemegang Hak Cipta --}}
             <div class="card">
                 <div class="card-body">
-                    <h5 class="mb-5">Data Pemegang Hak Cipta</h5>
-                    <a href="{{ route('user.ajuan.pemegang.create', ['detailHakcipta' => $detailHakcipta->id]) }}" class="btn btn-primary me-3 mb-3"><i class="fa-solid fa-plus"></i> Tambah Pemegang Hak Cipta</a>
-                    <table class="table" id="pemegang-hak-cipta-table">
-                        <thead>
-                            <tr>
-                                <th>Nama</th>
-                                <th>Kewarganegaraan</th>
-                                <th>Alamat</th>
-                                <th>Kode Pos</th>
-                                <th>Kota</th>
-                                <th>Provinsi</th>
-                                <th>Email/No. Telp</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    @error('holder') <span class="text-danger">{{ $message }}</span> @enderror
+                    @livewire('user.ajuan.holder', ['id' => $detailHakcipta->id])
                 </div>
             </div>
     
@@ -175,72 +139,94 @@
                 <div class="card-body">
                     <h5 class="mb-5">Lampiran</h5>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="row">
-                                
-                                {{-- Salinan Resmi Akta Pendirian Badan Hukum --}}
-                                <div class="col-md-4">
-                                    <label class="mt-2" >Salinan Resmi Akta Pendirian Badan Hukum*</label >
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem; background-color: #435ebe">
+                                <i class="fa-solid fa-file card-img-top pt-5" style="font-size: 100px; text-align: center;  color: white"></i>
+                                <div class="card-body" style="text-align: center">
+                                    <h5 class="card-title" style="text-align: center; color: white">Salinan Resmi Akta Pendirian Badan Hukum</h5>
+                                    <a href="{{$detailHakcipta->attachment->salinan_resmi_akta_pendirian_badan_hukum_url}}" target="_blank" class="btn btn-secondary">Open</a>
                                 </div>
-                                <div class="col-md-8 form-group">
+                                <div class="form-group px-2">
                                     <input type="file" class="form-control" id="salinan_resmi_akta_pendirian_badan_hukum" name="salinan_resmi_akta_pendirian_badan_hukum">
                                     @error('salinan_resmi_akta_pendirian_badan_hukum') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
-                                
-                                {{-- Scan NPWP perorangan / perusahaan --}}
-                                <div class="col-md-4">
-                                    <label class="mt-2" >Scan NPWP perorangan / perusahaan*</label >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem; background-color: #435ebe">
+                                <i class="fa-solid fa-file card-img-top pt-5" style="font-size: 100px; text-align: center;  color: white"></i>
+                                <div class="card-body" style="text-align: center">
+                                    <h5 class="card-title" style="text-align: center; color: white">Scan NPWP</h5>
+                                    <a href="{{$detailHakcipta->attachment->scan_npwp_url}}" target="_blank" class="btn btn-secondary">Open</a>
                                 </div>
-                                <div class="col-md-8 form-group">
+                                <div class="px-2 form-group">
                                     <input type="file" class="form-control" id="scan_npwp" name="scan_npwp">
                                     @error('scan_npwp') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
-                                
-                                {{-- Contoh Ciptaan --}}
-                                <div class="col-md-4">
-                                    <label class="mt-2" >Contoh Ciptaan*</label >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem; background-color: #435ebe">
+                                <i class="fa-solid fa-file card-img-top pt-5" style="font-size: 100px; text-align: center;  color: white"></i>
+                                <div class="card-body" style="text-align: center">
+                                    <h5 class="card-title" style="text-align: center; color: white">Contoh Ciptaan</h5>
+                                    <a href="{{$detailHakcipta->attachment->contoh_ciptaan_url}}" target="_blank" class="btn btn-secondary">Open</a>
                                 </div>
-                                <div class="col-md-8 form-group">
+                                <div class="px-2 form-group">
                                     <input type="file" class="form-control" id="contoh_ciptaan" name="contoh_ciptaan">
                                     @error('contoh_ciptaan') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
-                                
-                                {{-- Contoh Ciptaan (Link) --}}
-                                <div class="col-md-4">
-                                    <label class="mt-2" >Contoh Ciptaan (Link)</label >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem; background-color: #435ebe">
+                                <i class="fa-solid fa-link card-img-top pt-5" style="font-size: 100px; text-align: center;  color: white"></i>
+                                <div class="card-body" style="text-align: center">
+                                    <h5 class="card-title" style="text-align: center; color: white">Contoh Ciptaan (Link)</h5>
+                                    @if ($detailHakcipta->attachment->link_contoh_ciptaan)
+                                        <a href="{{$detailHakcipta->attachment->link_contoh_ciptaan}}" target="_blank" class="btn btn-secondary">Open</a>
+                                    @endif
                                 </div>
-                                <div class="col-md-8 form-group">
-                                    <textarea rows="3" placeholder="Contoh Ciptaan (Link)" class="form-control" id="link_contoh_ciptaan" name="link_contoh_ciptaan">{{old('link_contoh_ciptaan')}}</textarea>
+                                <div class="px-2 form-group">
+                                    <textarea rows="3" placeholder="Contoh Ciptaan (Link)" class="form-control" id="link_contoh_ciptaan" name="link_contoh_ciptaan">{{old('link_contoh_ciptaan', $detailHakcipta->attachment->link_contoh_ciptaan)}}</textarea>
                                     @error('link_contoh_ciptaan') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                
-                                {{-- Scan KTP Pemohon dan Pencipta --}}
-                                <div class="col-md-4">
-                                    <label class="mt-2" >Scan KTP Pemohon dan Pencipta*</label >
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem; background-color: #435ebe">
+                                <i class="fa-solid fa-file card-img-top pt-5" style="font-size: 100px; text-align: center;  color: white"></i>
+                                <div class="card-body" style="text-align: center">
+                                    <h5 class="card-title" style="text-align: center; color: white">Scan KTP</h5>
+                                    <a href="{{$detailHakcipta->attachment->scan_ktp_url}}" target="_blank" class="btn btn-secondary">Open</a>
                                 </div>
-                                <div class="col-md-8 form-group">
+                                <div class="px-2 form-group">
                                     <input type="file" class="form-control" name="scan_ktp" id="scan_ktp">
                                     @error('scan_ktp') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
-    
-                                {{-- Surat Pernyataan --}}
-                                <div class="col-md-4">
-                                    <label class="mt-2" >Surat Pernyataan*</label >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem; background-color: #435ebe">
+                                <i class="fa-solid fa-file card-img-top pt-5" style="font-size: 100px; text-align: center;  color: white"></i>
+                                <div class="card-body" style="text-align: center">
+                                    <h5 class="card-title" style="text-align: center; color: white">Surat Pernyataan</h5>
+                                    <a href="{{$detailHakcipta->attachment->surat_pernyataan_url}}" target="_blank" class="btn btn-secondary">Open</a>
                                 </div>
-                                <div class="col-md-8 form-group">
+                                <div class="px-2 form-group">
                                     <input type="file" class="form-control" id="surat_pernyataan" name="surat_pernyataan">
                                     @error('surat_pernyataan') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
-    
-                                {{-- Bukti Pengalihan Hak Cipta --}}
-                                <div class="col-md-4">
-                                    <label class="mt-2" >Bukti Pengalihan Hak Cipta</label >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem; background-color: #435ebe">
+                                <i class="fa-solid fa-file card-img-top pt-5" style="font-size: 100px; text-align: center;  color: white"></i>
+                                <div class="card-body" style="text-align: center">
+                                    <h5 class="card-title" style="text-align: center; color: white">Bukti Pengalihan Hak Cipta</h5>
+                                    <a href="{{$detailHakcipta->attachment->bukti_pengalihan_hak_cipta_url}}" target="_blank" class="btn btn-secondary">Open</a>
                                 </div>
-                                <div class="col-md-8 form-group">
+                                <div class="px-2 form-group">
                                     <input type="file" class="form-control" id="bukti_pengalihan_hak_cipta" name="bukti_pengalihan_hak_cipta">
                                     @error('bukti_pengalihan_hak_cipta') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
@@ -252,8 +238,8 @@
     
             <div class="row">
                 <div class="col-md-6">
-                    <button class="btn btn-primary me-3 mb-3" onclick="addApplication()"><i class="fa-solid fa-plus"></i> Submit</button>
-                    <button class="btn btn-danger me-3 mb-3" onclick="addApplication()"><i class="fa-solid fa-xmark"></i> Cancel</button>
+                    <button type="submit" class="btn btn-primary me-3 mb-3"><i class="fa-solid fa-plus"></i> Submit</button>
+                    <button type="button" class="btn btn-danger me-3 mb-3"><i class="fa-solid fa-xmark"></i> Cancel</button>
                 </div>
             </div>
         </form>
@@ -271,152 +257,26 @@
     var _ajuan = "{{ $detailHakcipta->id }}";
 
     $(document).ready(function () {
-        // pencipta table
-        penciptaTable = $('#pencipta-table').DataTable({
-                "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"]],
-                processing: true,
-                serverSide: true,
-                // scrollX: true,
-                // responsive: true,
-                scrollCollapse: true,
-                fixedColumns: {
-                    left: 0,
-                    right: 1,
-                },
-                ajax: {
-                    url : "{{route('user.ajuan.pencipta.data', ['detailHakcipta' => $detailHakcipta->id])}}",
-                    type : 'POST',
-                    data: {
-                        _token:_token,
-                    },
-                },
-                columns: [
-                    { data: 'name' },
-                    { data: 'nationality.name' },
-                    { data: 'address' },
-                    { data: 'postal_code' },
-                    {
-                        data: 'district_count',
-                        render: function(data, type, row){
-                            // return data+" / "+row.no_telp;
-                            if (data > 0) {
-                                return row.districta['name'];
-                            }else{
-                                return row.district;
-                            }
-                        }
-                    },
-                    {
-                        data: 'province_count',
-                        render: function(data, type, row){
-                            if (data > 0) {
-                                return row.province['name'];
-                            }else{
-                                return "-";
-                            }
-                        }
-                    },
-                    { 
-                        data: 'email',
-                        render: function(data, type, row){
-                            return data+" / "+row.no_telp;
-                        }
-                    },
-                    {
-                        orderable: false,
-                        "searchable": false,
-                        data: 'id',
-                        render: function(data, type, row){
-                            var url_edit = "{{url('/ajuan/')}}"+"/"+_ajuan+"/pencipta/"+data+"/edit";
-                            var delete_action = "onclick=\"deletePencipta('"+data+"')\"";
+        $('#province_id_input_holder').hide();
+        $('#district_id_input_holder').hide();
+        $('#subdistrict_id_input_holder').hide();
+        $('#province_id_label_holder').hide();
+        $('#district_id_label_holder').hide();
+        $('#subdistrict_id_label_holder').hide();
+        
+        $('#district_input_holder').show();
+        $('#district_label_holder').show();
 
-                            return '\
-                            <div class="btn-group" role="group" aria-label="PIC Details Action">\
-                                <a href="'+url_edit+'" class="btn btn-warning btn-sm me-2 mb-1"><i class="fa-solid fa-pen-to-square"></i> Edit</a>\
-                                <button type="button" class="btn btn-sm btn-danger mb-1 me-2" '+delete_action+'><i class="fa-solid fa-trash-can"></i> Delete</button>\
-                            </div>';
 
-                        }
-                    },
-                ]
-            });
-
-        // pemegang table
-        pemegangHakCiptaTable = $('#pemegang-hak-cipta-table').DataTable({
-                "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"]],
-                processing: true,
-                serverSide: true,
-                // scrollX: true,
-                // responsive: true,
-                scrollCollapse: true,
-                fixedColumns: {
-                    left: 0,
-                    right: 1,
-                },
-                ajax: {
-                    url : "{{route('user.ajuan.pemegang.data', ['detailHakcipta' => $detailHakcipta->id])}}",
-                    type : 'POST',
-                    data: {
-                        _token:_token,
-                    },
-                },
-                columns: [
-                    { data: 'name' },
-                    { data: 'nationality.name' },
-                    { data: 'address' },
-                    { data: 'postal_code' },
-                    {
-                        data: 'district_count',
-                        render: function(data, type, row){
-                            // return data+" / "+row.no_telp;
-                            if (data > 0) {
-                                return row.districta['name'];
-                            }else{
-                                return row.district;
-                            }
-                        }
-                    },
-                    {
-                        data: 'province_count',
-                        render: function(data, type, row){
-                            if (data > 0) {
-                                return row.province['name'];
-                            }else{
-                                return "-";
-                            }
-                        }
-                    },
-                    { 
-                        data: 'email',
-                        render: function(data, type, row){
-                            return data+" / "+row.no_telp;
-                        }
-                    },
-                    {
-                        orderable: false,
-                        "searchable": false,
-                        data: 'id',
-                        render: function(data, type, row){
-                            if (row.is_manageable) {
-                                var url_edit = "{{url('/ajuan/')}}"+"/"+_ajuan+"/pemegang/"+data+"/edit";
-                                var delete_action = "onclick=\"deletePemegang('"+data+"')\"";
-    
-                                return '\
-                                <div class="btn-group" role="group" aria-label="PIC Details Action">\
-                                    <a href="'+url_edit+'" class="btn btn-warning btn-sm me-2 mb-1"><i class="fa-solid fa-pen-to-square"></i> Edit</a>\
-                                    <button type="button" class="btn btn-sm btn-danger mb-1 me-2" '+delete_action+'><i class="fa-solid fa-trash-can"></i> Delete</button>\
-                                </div>';
-                            }else{
-                                return "-";
-                            }
-
-                        }
-                    },
-                ]
-            });
-
-        // pencipta table
-        // pemegangHakCiptaTable = $('#pemegang-hak-cipta-table').DataTable();
+        $('#province_id_input_creator').hide();
+        $('#district_id_input_creator').hide();
+        $('#subdistrict_id_input_creator').hide();
+        $('#province_id_label_creator').hide();
+        $('#district_id_label_creator').hide();
+        $('#subdistrict_id_label_creator').hide();
+        
+        $('#district_input_creator').show();
+        $('#district_label_creator').show();
 
         getSubjenis($('#creation_type_id').val());
     });
@@ -511,5 +371,139 @@
             }
         })
     }
+</script>
+<script>
+    window.addEventListener('openModalAdd', event => {
+        $('#addCreator').modal('show');
+    })
+
+    window.addEventListener('closeModalAdd', event => {
+        $('#addCreator').modal('hide');
+    })
+
+    window.addEventListener('openModalEdit', event => {
+        $('#editCreator').modal('show');
+    })
+
+    window.addEventListener('closeModalEdit', event => {
+        $('#editCreator').modal('hide');
+    })
+
+    window.addEventListener('openModalDelete', event => {
+        // $('#editCreator').modal('hide');
+        Swal.fire({
+            title: 'Anda yakin??',
+            text: "Menghapus pencipta hakcipta",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Cancel'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emit('deleteCreator');
+                    Swal.fire({
+                    title: 'Sukses',
+                    text: "Menghapus pencipta hakcipta",
+                    icon: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok',
+                })
+            }
+        })
+    })
+</script>
+<script>
+    window.addEventListener('openModalAddHolder', event => {
+        $('#addHolder').modal('show');
+    })
+
+    window.addEventListener('closeModalAddHolder', event => {
+        $('#addHolder').modal('hide');
+    })
+
+    window.addEventListener('openModalEditHolder', event => {
+        $('#editHolder').modal('show');
+    })
+
+    window.addEventListener('closeModalEditHolder', event => {
+        $('#editHolder').modal('hide');
+    })
+
+    window.addEventListener('openModalDeleteHolder', event => {
+        // $('#editCreator').modal('hide');
+        Swal.fire({
+            title: 'Anda yakin??',
+            text: "Menghapus pencipta hakcipta",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Cancel'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emit('deleteHolder');
+                    Swal.fire({
+                    title: 'Sukses',
+                    text: "Menghapus pencipta hakcipta",
+                    icon: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok',
+                })
+            }
+        })
+    })
+
+    window.addEventListener('inputDistrictHolder', event => {
+        $('#province_id_input_holder').hide();
+        $('#district_id_input_holder').hide();
+        $('#subdistrict_id_input_holder').hide();
+        $('#province_id_label_holder').hide();
+        $('#district_id_label_holder').hide();
+        $('#subdistrict_id_label_holder').hide();
+        
+        $('#district_input_holder').show();
+        $('#district_label_holder').show();
+    })
+
+    window.addEventListener('inputProvinceHolder', event => {
+        $('#province_id_input_holder').show();
+        $('#district_id_input_holder').show();
+        $('#subdistrict_id_input_holder').show();
+        $('#province_id_label_holder').show();
+        $('#district_id_label_holder').show();
+        $('#subdistrict_id_label_holder').show();
+        
+        $('#district_input_holder').hide();
+        $('#district_label_holder').hide();
+    })
+
+    window.addEventListener('inputDistrictCreator', event => {
+        $('#province_id_input_creator').hide();
+        $('#district_id_input_creator').hide();
+        $('#subdistrict_id_input_creator').hide();
+        $('#province_id_label_creator').hide();
+        $('#district_id_label_creator').hide();
+        $('#subdistrict_id_label_creator').hide();
+        
+        $('#district_input_creator').show();
+        $('#district_label_creator').show();
+    })
+
+    window.addEventListener('inputProvinceCreator', event => {
+        $('#province_id_input_creator').show();
+        $('#district_id_input_creator').show();
+        $('#subdistrict_id_input_creator').show();
+        $('#province_id_label_creator').show();
+        $('#district_id_label_creator').show();
+        $('#subdistrict_id_label_creator').show();
+        
+        $('#district_input_creator').hide();
+        $('#district_label_creator').hide();
+    })
 </script>
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Enums\AjuanStatus;
 use App\Models\Country;
 use App\Models\CreationType;
 use Illuminate\Http\Request;
@@ -10,10 +11,13 @@ use App\Models\HolderHakcipta;
 use App\Models\ApplicationType;
 use App\Models\ParameterHolder;
 use App\Http\Controllers\Controller;
+use App\Models\AttachmentHakcipta;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\File;
 use Illuminate\Validation\Validator as ValidationValidator;
 
 class AjuanController extends Controller
@@ -77,27 +81,15 @@ class AjuanController extends Controller
         $rules = array_merge($rules, $rulesDetail);
 
         $rulesAttachment = [
-            'salinan_resmi_akta_pendirian_badan_hukum' => ['required'],
-            'scan_npwp' => ['required'],
-            'contoh_ciptaan' => ['required'],
+            'salinan_resmi_akta_pendirian_badan_hukum' => ['required', File::types(['pdf'])->max(5000) ],
+            'scan_npwp' => ['required', File::types(['pdf'])->max(5000)],
+            'contoh_ciptaan' => ['required', File::types(['pdf'])->max(5000)],
             // 'link_contoh_ciptaan' => ['required'],
-            'scan_ktp' => ['required'],
-            'surat_pernyataan' => ['required'],
-            'bukti_pengalihan_hak_cipta' => ['required'],
+            'scan_ktp' => ['required', File::types(['pdf'])->max(5000)],
+            'surat_pernyataan' => ['required', File::types(['pdf'])->max(5000)],
+            'bukti_pengalihan_hak_cipta' => ['required', File::types(['pdf'])->max(5000)],
         ];
         $rules = array_merge($rules, $rulesAttachment);
-
-        // $request['creator'] = $detailHakcipta->id;
-        // $rulesPencipta = [
-        //     'creator' => [ new CreatorMustNotNullRule() ],
-        // ];
-        // $rules = array_merge($rules, $rulesPencipta);
-        
-        // $request['holder'] = $detailHakcipta->id;
-        // $rulesPemegangHakcipta = [
-        //     'holder' => [ new HolderMustNotNullRule() ],
-        // ];
-        // $rules = array_merge($rules, $rulesPemegangHakcipta);
 
         $validator = Validator::make(
             data: $request->all(),
@@ -116,14 +108,7 @@ class AjuanController extends Controller
             }
         });
 
-        // dd($detailHakcipta->isCreatorExist(1));
-
         if ($validator->fails()) {
-            // dd($holder->message);
-            // $validator->errors()->add('a', 'sadasdasdas');
-            // dd($validator);
-            // dd($detailHakcipta->creators()->count());
-            // return back()->withErrors($validator)->withInput();
             return back()->withErrors($validator)->withInput();
         }
 
@@ -154,7 +139,6 @@ class AjuanController extends Controller
         }
         
         $detailHakcipta->attachment()->create($dataAttachment);
-        // AttachmentHakcipta::create($dataAttachment);
 
         Alert::toast('Success Menambah Ajuan', 'success');
 
@@ -206,6 +190,8 @@ class AjuanController extends Controller
             'first_announced_country',
         ]);
 
+        // return $detailHakcipta;
+
         $data = [
             'detailHakcipta' => $detailHakcipta,
             'application_types' => ApplicationType::all(),
@@ -225,7 +211,125 @@ class AjuanController extends Controller
      */
     public function update(Request $request, DetailHakcipta $detailHakcipta)
     {
-        //
+        $detailHakcipta->load([
+            'attachment'
+        ]);
+
+        // return $detailHakcipta;
+        $attachment = $detailHakcipta->attachment;
+
+        $rules = [];
+
+        $rulesDetail = [
+            'application_type_id' => ['required', 'exists:application_types,id'],
+            'creation_type_id' => ['required', 'exists:creation_types,id'],
+            'creation_subtype_id' => ['required', 'exists:creation_subtypes,id'],
+            'title' => ['required', 'max:255'],
+            'short_description' => ['required'],
+            'first_announced_date' => ['required'],
+            'first_announced_country_id' => ['required', 'exists:countries,id'],
+            'first_announced_city' => ['required', 'max:255'],
+        ];
+        $rules = array_merge($rules, $rulesDetail);
+
+        $rulesAttachment = [
+            'salinan_resmi_akta_pendirian_badan_hukum' => [File::types(['pdf'])->max(5000)],
+            'scan_npwp' => [File::types(['pdf'])->max(5000)],
+            'contoh_ciptaan' => [File::types(['pdf'])->max(5000)],
+            'scan_ktp' => [File::types(['pdf'])->max(5000)],
+            'surat_pernyataan' => [File::types(['pdf'])->max(5000)],
+            'bukti_pengalihan_hak_cipta' => [File::types(['pdf'])->max(5000)],
+        ];
+        $rules = array_merge($rules, $rulesAttachment);
+
+        $validator = Validator::make(
+            data: $request->all(),
+            rules: $rules,
+        );
+        
+        $validator->after(function (ValidationValidator $validator) use ($detailHakcipta) {
+            $creator = $detailHakcipta->isCreatorExist($this->_minCreatorCount);
+            if ($creator->status == false) {
+                $validator->errors()->add('creator', $creator->message);
+            }
+
+            $holder = $detailHakcipta->isHolderExist($this->_minHolderCount);
+            if ($holder->status == false) {
+                $validator->errors()->add('holder', $holder->message);
+            }
+        });
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $dataDetail = [
+            'application_type_id' => $request->application_type_id,
+            'creation_type_id' => $request->creation_type_id,
+            'creation_subtype_id' => $request->creation_subtype_id,
+            'title' => $request->title,
+            'short_description' => $request->short_description,
+            'first_announced_date' => $request->first_announced_date,
+            'first_announced_country_id' => $request->first_announced_country_id,
+            'first_announced_city' => $request->first_announced_city,
+            'status' => AjuanStatus::AdminProcess,
+            'is_submited' => 1,
+        ];
+        $detailHakcipta->update($dataDetail);
+
+        $dataAttachment = [
+            // 'salinan_resmi_akta_pendirian_badan_hukum' => $request->file('salinan_resmi_akta_pendirian_badan_hukum')->store('attachment-hakcipta_'.$detailHakcipta->id),
+            // 'scan_npwp' => $request->file('scan_npwp')->store('attachment-hakcipta_'.$detailHakcipta->id),
+            // 'contoh_ciptaan' => $request->file('contoh_ciptaan')->store('attachment-hakcipta_'.$detailHakcipta->id),
+            // 'scan_ktp' => $request->file('scan_ktp')->store('attachment-hakcipta_'.$detailHakcipta->id),
+            // 'surat_pernyataan' => $request->file('surat_pernyataan')->store('attachment-hakcipta_'.$detailHakcipta->id),
+            // 'bukti_pengalihan_hak_cipta' => $request->file('bukti_pengalihan_hak_cipta')->store('attachment-hakcipta_'.$detailHakcipta->id),
+        ];
+
+        if ($request->link_contoh_ciptaan) {
+            $dataAttachment['link_contoh_ciptaan']=$request->link_contoh_ciptaan;
+        }else {
+            $dataAttachment['link_contoh_ciptaan']=null;
+        }
+
+        if ($request->file('salinan_resmi_akta_pendirian_badan_hukum')) {
+            Storage::delete($attachment->salinan_resmi_akta_pendirian_badan_hukum);
+            $dataAttachment['salinan_resmi_akta_pendirian_badan_hukum'] = $request->file('salinan_resmi_akta_pendirian_badan_hukum')->store('attachment-hakcipta_'.$detailHakcipta->id);
+        }
+
+        if ($request->file('scan_npwp')) {
+            Storage::delete($attachment->scan_npwp);
+            $dataAttachment['scan_npwp'] = $request->file('scan_npwp')->store('attachment-hakcipta_'.$detailHakcipta->id);
+        }
+
+        if ($request->file('contoh_ciptaan')) {
+            Storage::delete($attachment->contoh_ciptaan);
+            $dataAttachment['contoh_ciptaan'] = $request->file('contoh_ciptaan')->store('attachment-hakcipta_'.$detailHakcipta->id);
+        }
+
+        if ($request->file('scan_ktp')) {
+            Storage::delete($attachment->scan_ktp);
+            $dataAttachment['scan_ktp'] = $request->file('scan_ktp')->store('attachment-hakcipta_'.$detailHakcipta->id);
+        }
+
+        if ($request->file('surat_pernyataan')) {
+            Storage::delete($attachment->surat_pernyataan);
+            $dataAttachment['surat_pernyataan'] = $request->file('surat_pernyataan')->store('attachment-hakcipta_'.$detailHakcipta->id);
+        }
+
+        if ($request->file('bukti_pengalihan_hak_cipta')) {
+            Storage::delete($attachment->bukti_pengalihan_hak_cipta);
+            $dataAttachment['bukti_pengalihan_hak_cipta'] = $request->file('bukti_pengalihan_hak_cipta')->store('attachment-hakcipta_'.$detailHakcipta->id);
+        }
+        
+        // $detailHakcipta->attachment()->create($dataAttachment);
+        $attachment->update($dataAttachment);
+
+        // $detailHakcipta->attachment()->update();
+
+        Alert::toast('Success Menambah Ajuan', 'success');
+
+        return redirect()->to(route('user.ajuan.index'));
     }
 
     /**

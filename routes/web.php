@@ -128,6 +128,7 @@ use App\Http\Controllers\User\DashboardController as UserDashboardController;
                     Route::get('/edit/{detailHakcipta}', 'edit')->name('edit');
                     Route::get('/detail/{detailHakcipta}', 'show')->name('show');
                     Route::get('/log/{detailHakcipta}', 'log')->name('log');
+                    Route::put('/update/{detailHakcipta}', 'update')->name('update');
                     Route::post('/generate/subjenis/{creationType}', 'generateSubjenis')->name('generateSubjenis');
     
                     // pencipta
