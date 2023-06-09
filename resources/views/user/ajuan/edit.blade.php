@@ -139,7 +139,7 @@
                 <div class="card-body">
                     <h5 class="mb-5">Lampiran</h5>
                     <div class="row">
-                        <div class="col-md-4">
+                        {{-- <div class="col-md-4">
                             <div class="card" style="width: 18rem; background-color: #435ebe">
                                 <i class="fa-solid fa-file card-img-top pt-5" style="font-size: 100px; text-align: center;  color: white"></i>
                                 <div class="card-body" style="text-align: center">
@@ -149,6 +149,19 @@
                                 <div class="form-group px-2">
                                     <input type="file" class="form-control" id="salinan_resmi_akta_pendirian_badan_hukum" name="salinan_resmi_akta_pendirian_badan_hukum">
                                     @error('salinan_resmi_akta_pendirian_badan_hukum') <span class="text-warning">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                        </div> --}}
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem; background-color: #435ebe">
+                                <i class="fa-solid fa-file card-img-top pt-5" style="font-size: 100px; text-align: center;  color: white"></i>
+                                <div class="card-body" style="text-align: center">
+                                    <h5 class="card-title" style="text-align: center; color: white">Turnitin</h5>
+                                    <a href="{{$detailHakcipta->attachment->turnitin_url}}" target="_blank" class="btn btn-secondary">Open</a>
+                                </div>
+                                <div class="form-group px-2">
+                                    <input type="file" class="form-control" id="turnitin" name="turnitin">
+                                    @error('turnitin') <span class="text-warning">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>

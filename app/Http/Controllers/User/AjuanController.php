@@ -83,7 +83,8 @@ class AjuanController extends Controller
         $rules = array_merge($rules, $rulesDetail);
 
         $rulesAttachment = [
-            'salinan_resmi_akta_pendirian_badan_hukum' => ['required', File::types(['pdf'])->max(5000) ],
+            // 'salinan_resmi_akta_pendirian_badan_hukum' => ['required', File::types(['pdf'])->max(5000) ],
+            'turnitin' => ['required', File::types(['pdf'])->max(5000) ],
             'scan_npwp' => ['required', File::types(['pdf'])->max(5000)],
             'contoh_ciptaan' => ['required', File::types(['pdf'])->max(5000)],
             'scan_ktp' => ['required', File::types(['pdf'])->max(5000)],
@@ -128,7 +129,8 @@ class AjuanController extends Controller
         $detailHakcipta->update($dataDetail);
 
         $dataAttachment = [
-            'salinan_resmi_akta_pendirian_badan_hukum' => $request->file('salinan_resmi_akta_pendirian_badan_hukum')->store('attachment-hakcipta_'.$detailHakcipta->id),
+            // 'salinan_resmi_akta_pendirian_badan_hukum' => $request->file('salinan_resmi_akta_pendirian_badan_hukum')->store('attachment-hakcipta_'.$detailHakcipta->id),
+            'turnitin' => $request->file('turnitin')->store('attachment-hakcipta_'.$detailHakcipta->id),
             'scan_npwp' => $request->file('scan_npwp')->store('attachment-hakcipta_'.$detailHakcipta->id),
             'contoh_ciptaan' => $request->file('contoh_ciptaan')->store('attachment-hakcipta_'.$detailHakcipta->id),
             'scan_ktp' => $request->file('scan_ktp')->store('attachment-hakcipta_'.$detailHakcipta->id),
@@ -235,7 +237,8 @@ class AjuanController extends Controller
         $rules = array_merge($rules, $rulesDetail);
 
         $rulesAttachment = [
-            'salinan_resmi_akta_pendirian_badan_hukum' => [File::types(['pdf'])->max(5000)],
+            // 'salinan_resmi_akta_pendirian_badan_hukum' => [File::types(['pdf'])->max(5000)],
+            'turnitin' => [File::types(['pdf'])->max(5000)],
             'scan_npwp' => [File::types(['pdf'])->max(5000)],
             'contoh_ciptaan' => [File::types(['pdf'])->max(5000)],
             'scan_ktp' => [File::types(['pdf'])->max(5000)],
@@ -280,14 +283,7 @@ class AjuanController extends Controller
         ];
         $detailHakcipta->update($dataDetail);
 
-        $dataAttachment = [
-            // 'salinan_resmi_akta_pendirian_badan_hukum' => $request->file('salinan_resmi_akta_pendirian_badan_hukum')->store('attachment-hakcipta_'.$detailHakcipta->id),
-            // 'scan_npwp' => $request->file('scan_npwp')->store('attachment-hakcipta_'.$detailHakcipta->id),
-            // 'contoh_ciptaan' => $request->file('contoh_ciptaan')->store('attachment-hakcipta_'.$detailHakcipta->id),
-            // 'scan_ktp' => $request->file('scan_ktp')->store('attachment-hakcipta_'.$detailHakcipta->id),
-            // 'surat_pernyataan' => $request->file('surat_pernyataan')->store('attachment-hakcipta_'.$detailHakcipta->id),
-            // 'bukti_pengalihan_hak_cipta' => $request->file('bukti_pengalihan_hak_cipta')->store('attachment-hakcipta_'.$detailHakcipta->id),
-        ];
+        $dataAttachment = [];
 
         if ($request->link_contoh_ciptaan) {
             $dataAttachment['link_contoh_ciptaan']=$request->link_contoh_ciptaan;
@@ -295,9 +291,14 @@ class AjuanController extends Controller
             $dataAttachment['link_contoh_ciptaan']=null;
         }
 
-        if ($request->file('salinan_resmi_akta_pendirian_badan_hukum')) {
-            Storage::delete($attachment->salinan_resmi_akta_pendirian_badan_hukum);
-            $dataAttachment['salinan_resmi_akta_pendirian_badan_hukum'] = $request->file('salinan_resmi_akta_pendirian_badan_hukum')->store('attachment-hakcipta_'.$detailHakcipta->id);
+        // if ($request->file('salinan_resmi_akta_pendirian_badan_hukum')) {
+        //     Storage::delete($attachment->salinan_resmi_akta_pendirian_badan_hukum);
+        //     $dataAttachment['salinan_resmi_akta_pendirian_badan_hukum'] = $request->file('salinan_resmi_akta_pendirian_badan_hukum')->store('attachment-hakcipta_'.$detailHakcipta->id);
+        // }
+
+        if ($request->file('turnitin')) {
+            Storage::delete($attachment->turnitin);
+            $dataAttachment['turnitin'] = $request->file('turnitin')->store('attachment-hakcipta_'.$detailHakcipta->id);
         }
 
         if ($request->file('scan_npwp')) {

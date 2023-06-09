@@ -16,7 +16,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignIdFor(DetailHakcipta::class, 'detail_hakcipta_id');
             $table->foreign('detail_hakcipta_id')->references('id')->on('detail_hakciptas')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('salinan_resmi_akta_pendirian_badan_hukum');
+            // $table->string('salinan_resmi_akta_pendirian_badan_hukum');
+            $table->string('turnitin');
             $table->string('scan_npwp');
             $table->string('contoh_ciptaan');
             $table->text('link_contoh_ciptaan')->nullable();

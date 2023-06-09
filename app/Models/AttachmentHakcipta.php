@@ -12,7 +12,8 @@ class AttachmentHakcipta extends Model
     use HasFactory, HasUuids;
 
     protected $appends = [
-        'salinan_resmi_akta_pendirian_badan_hukum_url',
+        // 'salinan_resmi_akta_pendirian_badan_hukum_url',
+        'turnitin_url',
         'scan_npwp_url',
         'contoh_ciptaan_url',
         'scan_ktp_url',
@@ -22,7 +23,8 @@ class AttachmentHakcipta extends Model
 
     protected $fillable = [
         "detail_hakcipta_id",
-        "salinan_resmi_akta_pendirian_badan_hukum",
+        // "salinan_resmi_akta_pendirian_badan_hukum",
+        "turnitin",
         "scan_npwp",
         "contoh_ciptaan",
         "link_contoh_ciptaan",
@@ -31,10 +33,17 @@ class AttachmentHakcipta extends Model
         "bukti_pengalihan_hak_cipta"
     ];
     
-    protected function salinanResmiAktaPendirianBadanHukumUrl(): Attribute
+    // protected function salinanResmiAktaPendirianBadanHukumUrl(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn () => asset('storage/' . $this->salinan_resmi_akta_pendirian_badan_hukum),
+    //     );
+    // }
+    
+    protected function turnitinUrl(): Attribute
     {
         return Attribute::make(
-            get: fn () => asset('storage/' . $this->salinan_resmi_akta_pendirian_badan_hukum),
+            get: fn () => asset('storage/' . $this->turnitin),
         );
     }
 
