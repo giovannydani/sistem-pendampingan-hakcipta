@@ -59,7 +59,7 @@
 
                     {{-- name --}}
                     <div class="col-md-4">
-                        <label class="mt-2">Nama *</label >
+                        <label class="mt-2">Nama Lengkap (Dengan Gelar) *</label >
                     </div>
                     <div class="col-md-12 form-group">
                         <div class="input-group mb-3">
@@ -233,7 +233,7 @@
 
                         {{-- name --}}
                         <div class="col-md-4">
-                            <label class="mt-2">Nama *</label >
+                            <label class="mt-2">Nama Lengkap (Dengan Gelar) *</label >
                         </div>
                         <div class="col-md-12 form-group">
                             <div class="input-group mb-3">
