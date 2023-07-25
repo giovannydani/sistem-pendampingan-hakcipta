@@ -56,38 +56,38 @@ class ProfileController extends Controller
     public function changeDetail(Request $request)
     {
         Validator::make(
-            data: $request->all(),
-            rules: [
-                'name' => ['required'],
-                'email' => ['required', Rule::unique('users', 'email')->ignore(auth()->id())],
-            ],
-            )->validate();
-            
-            $oldEmail = auth()->user()->email;
-            
-            $dataUpdate = [
-                'name' => $request->name,
-                'email' => $request->email,
-            ];
-            
-            if ($oldEmail !== $request->email) {
-                $dataUpdate['email_verified_at'] = null;
-            }
-            
-            User::query()
-            ->where('id', auth()->id())
-            ->update($dataUpdate);
-            
-            $user = User::where('id', auth()->id())->first();
-            
-            if ($oldEmail !== $request->email) {
-                dispatch(new SendVerificationEmail($user));
-                Alert::toast('Success Mengubah Password', 'success');
-            }   
-
-            Alert::toast('Success Detail Akun', 'success');
-            
-            return redirect()->route('admin.profile.index');
+        data: $request->all(),
+        rules: [
+            'name' => ['required'],
+            'email' => ['required', Rule::unique('users', 'email')->ignore(auth()->id())],
+        ],
+        )->validate();
+        
+        $oldEmail = auth()->user()->email;
+        
+        $dataUpdate = [
+            'name' => $request->name,
+            'email' => $request->email,
+        ];
+        
+        if ($oldEmail !== $request->email) {
+            $dataUpdate['email_verified_at'] = null;
         }
+        
+        User::query()
+        ->where('id', auth()->id())
+        ->update($dataUpdate);
+        
+        $user = User::where('id', auth()->id())->first();
+        
+        if ($oldEmail !== $request->email) {
+            dispatch(new SendVerificationEmail($user));
+            Alert::toast('Success Mengubah Password', 'success');
+        }   
+
+        Alert::toast('Success Detail Akun', 'success');
+        
+        return redirect()->route('admin.profile.index');
     }
+}
     

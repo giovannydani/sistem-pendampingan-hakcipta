@@ -50,12 +50,6 @@
                 <span>Template</span>
             </a>
         </li>
-        <li class="sidebar-item {{ request()->routeIs('admin.application-type.*') ? 'active' : '' }}">
-            <a href="{{ route('admin.application-type.index') }}" class="sidebar-link">
-                <i class="bi bi-grid-fill"></i>
-                <span>Tipe Ajuan</span>
-            </a>
-        </li>
         @if (auth()->user()->role->isSuperAdmin())
             <li class="sidebar-item {{ request()->routeIs('admin.manage-admin.*') ? 'active' : '' }}">
                 <a href="{{ route('admin.manage-admin.index') }}" class="sidebar-link">
