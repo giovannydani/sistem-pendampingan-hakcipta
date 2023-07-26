@@ -344,7 +344,9 @@ class AjuanController extends Controller
      */
     public function destroy(DetailHakcipta $detailHakcipta)
     {
-        //
+        $detailHakcipta->delete();
+
+        return "success";
     }
 
     public function generateAdd()

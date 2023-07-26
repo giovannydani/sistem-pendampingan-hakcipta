@@ -72,7 +72,7 @@
                             var url_edit = "{{url('/ajuan/edit')}}"+"/"+data;
                             var url_log = "{{url('/ajuan/log')}}"+"/"+data;
                             var url_detail = "{{url('/ajuan/detail')}}"+"/"+data;
-                            var delete_action = "onclick=\"deleteApplicationType('"+data+"')\"";
+                            var delete_action = "onclick=\"deleteAjuan('"+data+"')\"";
 
                             if (row.is_admin_process || row.is_finish) {
                                 return '\
@@ -98,9 +98,9 @@
             // $('#application-table').DataTable();
         } );
 
-        function deleteApplicationType(id) {
+        function deleteAjuan(id) {
             var _token = "{{ csrf_token() }}";
-            var url = "{{url('/admin/application-type/')}}"+"/"+id;
+            var url = "{{url('/ajuan/')}}"+"/"+id;
             Swal.fire({
                 title: 'Are you sure?',
                 text: "Delete this type",
@@ -119,7 +119,7 @@
                         success: function(data) {
                             Swal.fire(
                                 'Success',
-                                'Delete Type Data',
+                                'Delete Ajuan',
                                 'success'
                             )
 
