@@ -100,7 +100,7 @@
 
         function deleteAjuan(id) {
             var _token = "{{ csrf_token() }}";
-            var url = "{{url('/ajuan/')}}"+"/"+id;
+            var url = "{{url('/ajuan/delete/')}}"+"/"+id;
             Swal.fire({
                 title: 'Are you sure?',
                 text: "Delete this type",

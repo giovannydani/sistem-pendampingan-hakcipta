@@ -124,12 +124,12 @@ use App\Http\Controllers\User\DashboardController as UserDashboardController;
                     Route::post('/data', 'data')->name('data');
                     Route::post('/generate', 'generateAdd')->name('generateAdd');
                     Route::put('/{detailHakcipta}', 'store')->name('store');
-                    Route::delete('/{detailHakcipta}', 'destroy')->name('destroy');
                     Route::get('/add/{detailHakcipta}', 'create')->name('create');
                     Route::get('/edit/{detailHakcipta}', 'edit')->name('edit');
                     Route::get('/detail/{detailHakcipta}', 'show')->name('show');
                     Route::get('/log/{detailHakcipta}', 'log')->name('log');
                     Route::put('/update/{detailHakcipta}', 'update')->name('update');
+                    Route::delete('/delete/{detailHakcipta}', 'destroy')->name('destroy');
                     Route::post('/generate/subjenis/{creationType}', 'generateSubjenis')->name('generateSubjenis');
     
                     // pencipta
