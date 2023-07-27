@@ -4,17 +4,18 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Enums\AjuanStatus;
 use App\Enums\UserRole;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\UserType;
+use App\Enums\AjuanStatus;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
 
 // class User extends Authenticatable
 class User extends Authenticatable implements MustVerifyEmail
@@ -31,6 +32,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'role',
+        'sso_id',
+        'type',
     ];
 
     /**
@@ -52,6 +55,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         // 'role' => AsEnumCollection::class.':'.UserRole::class,
         'role' => UserRole::class,
+        'type' => UserType::class,
     ];
 
     public function isAdmin() : Attribute
@@ -65,6 +69,13 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return Attribute::make(
             get: fn () => $this->role->isUser(),
+        );
+    }
+
+    public function isNormalType() : Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->type->isNormal(),
         );
     }
 

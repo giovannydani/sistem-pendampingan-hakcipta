@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('role')->default(\App\Enums\UserRole::USER->value);
+            $table->string('sso_id')->nullable();
+            $table->string('type')->default(\App\Enums\UserType::Normal->value);
             $table->timestamps();
         });
     }
