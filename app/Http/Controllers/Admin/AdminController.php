@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\UserRole;
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\User;
+use App\Enums\UserRole;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -36,20 +39,26 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(User $user)
+    public function store(Request $request)
     {
-        // $role = UserRole::where('code', 'ADM')->first();
+        Validator::make(
+            data: $request->all(),
+            rules: [
+                'name' => ['required', 'max:255'],
+                'email' => ['required', 'email', 'unique:users,email'],
+                'password' => ['required'],
+            ],
+        )->validate();
 
-        // RoleUser::create([
-        //     'user_id' => $user->id,
-        //     'role_id' => $role->id,
-        // ]);
-
-        $user->update([
-            'role' => UserRole::ADMIN->value,
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'created_at' => Carbon::now(),
+            'role' => UserRole::ADMIN,
         ]);
 
-        return 'success';
+        return to_route('admin.manage-admin.index');
     }
 
     /**
@@ -61,9 +70,7 @@ class AdminController extends Controller
     public function destroy(User $user)
     {
         // $roleUser->delete();
-        $user->update([
-            'role' => UserRole::USER->value,
-        ]);
+        $user->delete();
 
         return 'success';
     }
