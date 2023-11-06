@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\DetailHakcipta;
 use App\Models\ApplicationType;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -114,12 +115,22 @@ class AjuanController extends Controller
         return $text;
     }
 
-    public function data()
+    public function data(Request $request)
     {
-        // $data = DetailHakcipta::AdminProcess()->get();
         $data = DetailHakcipta::query()
+        ->with([
+            'owner'
+        ])
         ->orderBy('status') 
         ->IsSubmited()
+        ->when($request->input('_startDate'), function ($query) use ($request){
+            $startDate = Carbon::parse($request->input('_startDate'))->startOfDay();
+            $query->where('updated_at', '>', $startDate);
+        })
+        ->when($request->input('_endDate'), function ($query) use ($request){
+            $endDate = Carbon::parse($request->input('_endDate'))->endOfDay();
+            $query->where('updated_at', '<', $endDate);
+        })
         ->get();
 
         return DataTables::of($data)->make(true);
